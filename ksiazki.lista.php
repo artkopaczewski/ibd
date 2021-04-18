@@ -13,11 +13,12 @@ $listaKategorii = $kategorie->pobierzWszystkie();
 $ksiazki = new Ksiazki();
 $zapytanie = $ksiazki->pobierzZapytanie($_GET);
 
+
 // dodawanie warunków stronicowania i generowanie linków do stron
 $stronicowanie = new Stronicowanie($_GET, $zapytanie['parametry']);
 $linki = $stronicowanie->pobierzLinki($zapytanie['sql'], 'ksiazki.lista.php');
 $select = $stronicowanie->dodajLimit($zapytanie['sql']);
-$lista = $ksiazki->pobierzStrone($select, $zapytanie['parametry']);
+$lista = $ksiazki->pobierzWszystkie();
 ?>
 
     <h1>Książki</h1>
@@ -72,22 +73,23 @@ $lista = $ksiazki->pobierzStrone($select, $zapytanie['parametry']);
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($lista as $ks): ?>
+
+        <?php foreach ($lista as $ksiazka): ?>
             <tr>
                 <td style="width: 100px">
-                    <?php if (!empty($ks['zdjecie'])): ?>
-                        <img src="zdjecia/<?= $ks['zdjecie'] ?>" alt="<?= $ks['tytul'] ?>" class="img-thumbnail"/>
+                    <?php if (!empty($ksiazka['zdjecie'])): ?>
+                        <img src="zdjecia/<?= $ksiazka['zdjecie'] ?>" alt="<?= $ksiazka['tytul'] ?>" class="img-thumbnail"/>
                     <?php else: ?>
                         brak zdjęcia
                     <?php endif; ?>
                 </td>
-                <td><?= $ks['tytul'] ?></td>
-                <td><?= $ks['id_autora'] ?></td>
-                <td><?= $ks['id_kategorii'] ?></td>
-                <td><?= $ks['cena'] ?></td>
+                <td><?= $ksiazka['tytul'] ?></td>
+                <td><?= $ksiazka['nazwisko'] ?></td>
+                <td><?= $ksiazka['nazwa'] ?></td>
+                <td><?= $ksiazka['cena'] ?></td>
                 <td>
                     <a href="#" title="dodaj do koszyka"><i class="fas fa-cart-plus"></i></a>
-                    <a href="ksiazki.szczegoly.php?id=<?= $ks['id'] ?>" title="szczegóły"><i
+                    <a href="ksiazki.szczegoly.php?id=<?= $ksiazka['id'] ?>" title="szczegóły"><i
                                 class="fas fa-folder-open"></i></a>
                 </td>
             </tr>

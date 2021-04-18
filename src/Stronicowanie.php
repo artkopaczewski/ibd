@@ -9,37 +9,37 @@ class Stronicowanie
      *
      * @var Db
      */
-    private Db $db;
+    private $db;
 
     /**
      * Liczba rekordów wyświetlanych na stronie.
      *
      * @var int
      */
-    private int $naStronie = 5;
+    private $naStronie = 5;
 
     /**
      * Aktualnie wybrana strona.
      *
      * @var int
      */
-    private int $strona = 0;
+    private $strona = 0;
 
     /**
      * Dodatkowe parametry przekazywane w pasku adresu (metodą GET).
      *
      * @var array
      */
-    private array $parametryGet = [];
+    private $parametryGet = [];
 
     /**
      * Parametry przekazywane do zapytania SQL.
      *
      * @var array
      */
-    private array $parametryZapytania;
+    private $parametryZapytania;
 
-    public function __construct(array $parametryGet , array $parametryZapytania = [])
+    public function __construct($parametryGet, $parametryZapytania)
     {
         $this->db = new Db();
         $this->parametryGet = $parametryGet;

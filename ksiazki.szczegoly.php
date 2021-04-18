@@ -16,12 +16,44 @@ $ksiazki = new Ksiazki();
 $dane = $ksiazki->pobierz($id);
 ?>
 
-<h2><?=$dane['tytul']?></h2>
+    <h1><?=$dane['tytul']?></h1>
 
-<p>
-	<a href="ksiazki.lista.php"><i class="fas fa-chevron-left"></i> Powrót</a>
-</p>
+    <div class="row">
 
-<p>szczegóły książki......</p>
+        <?php if (!empty($dane['zdjecie'])) : ?>
+            <img src="zdjecia/<?= $dane['zdjecie'] ?>" alt="<?= $dane['tytul'] ?>" class="img-thumbnail" />
+        <?php else : ?>
+            brak zdjęcia
+        <?php endif; ?>
+
+
+        <div class="col-10">
+            <table class="table">
+                <tr>
+                    <h1 style="text-align:center;">Opis</h1>
+                    <td><?= $dane['opis'] ?></td>
+                </tr>
+                <tr>
+                    <td><strong>Cena</strong></td>
+                    <td><?= $dane['cena'] ?></td>
+                </tr>
+                <tr>
+                    <td><strong>Liczba stron</strong></td>
+                    <td><?= $dane['liczba_stron'] ?></td>
+                </tr>
+                <tr>
+                    <td><strong>ISBN</strong></td>
+                    <td><?= $dane['isbn'] ?></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+
+    <p>
+        <a href="ksiazki.lista.php"><i class="fas fa-chevron-left"></i> Powrót</a>
+    </p>
+
 
 <?php include 'footer.php'; ?>
